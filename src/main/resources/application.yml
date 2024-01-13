@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/clevertec_spring
+    username: postgres
+    password: postgres
+  hibernate:
+    ddl: none
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    format-sql: true
+pagination:
+  page-size: 15
+  page-number: 1
