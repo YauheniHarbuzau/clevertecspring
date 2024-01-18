@@ -71,8 +71,8 @@ public class House {
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "houses_persons",
+    @JoinTable(name = "houses_owners",
             joinColumns = @JoinColumn(name = "houses_id"),
-            inverseJoinColumns = @JoinColumn(name = "persons_id"))
+            inverseJoinColumns = @JoinColumn(name = "owners_id"))
     private List<Person> owners;
 }

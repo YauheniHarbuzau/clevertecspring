@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset Harbuzau:insert_into_houses_table
+--changeset Author:insert_into_houses_table
 INSERT INTO houses (uuid, area, country, city, street, number, create_date)
 VALUES ('7d7369f0-368f-4ed3-9fbb-71e7c7664121', 'Eurasia', 'Belarus', 'Gomel', 'Bazarnaya', '1-A', NOW()),
        ('3d2dba22-783b-4a45-9f20-4457dbef611a', 'Eurasia', 'Belarus', 'Gomel', 'Bazarnaya', '1-B', NOW()),

@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset Harbuzau:create_persons_table
+--changeset Author:create_persons_table
 CREATE TABLE IF NOT EXISTS persons
 (
     id              BIGSERIAL PRIMARY KEY NOT NULL,

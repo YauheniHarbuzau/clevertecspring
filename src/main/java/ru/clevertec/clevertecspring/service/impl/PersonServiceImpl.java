@@ -79,10 +79,12 @@ public class PersonServiceImpl implements PersonService {
         personRepository.deleteByUuid(uuid);
     }
 
-    private House getResidency(PersonRequest personRequest) {
-        var residencyUuid = personRequest.getResidencyUuid();
-        return houseRepository.findByUuid(residencyUuid)
-                .orElseThrow(() -> EntityNotFoundException.of(House.class, residencyUuid));
+    @Override
+    public List<PersonResponse> getHouseOwners(UUID houseUuid) {
+        return personRepository.findHouseOwners(houseUuid).stream()
+                .map(mapper::toResponse)
+                .peek(p -> p.setResidencyUuid(houseUuid))
+                .toList();
     }
 
     @Override
@@ -98,5 +100,11 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.fullTextSearch(text).stream()
                 .map(mapper::toResponse)
                 .toList();
+    }
+
+    private House getResidency(PersonRequest personRequest) {
+        var residencyUuid = personRequest.getResidencyUuid();
+        return houseRepository.findByUuid(residencyUuid)
+                .orElseThrow(() -> EntityNotFoundException.of(House.class, residencyUuid));
     }
 }

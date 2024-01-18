@@ -18,6 +18,8 @@ public interface PersonService {
 
     void deleteByUuid(UUID uuid);
 
+    List<PersonResponse> getHouseOwners(UUID houseUuid);
+
     List<PersonResponse> getHouseResidents(UUID houseUuid);
 
     List<PersonResponse> fullTextSearch(String text);

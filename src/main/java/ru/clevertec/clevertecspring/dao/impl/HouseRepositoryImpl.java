@@ -83,10 +83,11 @@ public class HouseRepositoryImpl implements HouseRepository {
     @Override
     public void deleteByUuid(UUID uuid) {
         var session = sessionFactory.openSession();
+        var houseToDelete = findByUuid(uuid).get();
 
         try {
             session.beginTransaction();
-            session.remove(findByUuid(uuid).get());
+            session.remove(session.get(House.class, houseToDelete.getId()));
             session.getTransaction().commit();
         } catch (HibernateException ex) {
             ex.printStackTrace();

@@ -58,11 +58,15 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/owners/{houseuuid}")
+    public ResponseEntity<List<PersonResponse>> getHouseOwners(@PathVariable("houseuuid") UUID houseUuid) {
+        return ResponseEntity.ok(service.getHouseOwners(houseUuid));
+    }
+
     @GetMapping("/residents/{houseuuid}")
     public ResponseEntity<List<PersonResponse>> getHouseResidents(@PathVariable("houseuuid") UUID houseUuid) {
         return ResponseEntity.ok(service.getHouseResidents(houseUuid));
     }
-
 
     @GetMapping("/fulltextsearch/{text}")
     public ResponseEntity<List<PersonResponse>> fullTextSearch(@PathVariable("text") String text) {

@@ -1,7 +1,5 @@
 # CLEVERTEC SPRING
 
-**Автор Евгений Гарбузов**
-
 ***
 
 ### Параметры приложения, библиотеки и зависимости
@@ -26,8 +24,18 @@
 
 Точка входа в приложение - main-класс [App](src/main/java/ru/clevertec/clevertecspring/App.java "App.java").
 
-Apache Tomcat запускается автоматически при старте приложения
-(см. [TomcatStarter](src/main/java/ru/clevertec/clevertecspring/util/TomcatStarter.java "TomcatStarter.java")).
+При старте приложения автоматически запускается Apache Tomcat
+(см. [TomcatStarter](src/main/java/ru/clevertec/clevertecspring/util/TomcatStarter.java "TomcatStarter.java"))
+и заполняется база данных при помощи Liquibase.
+
+***
+
+### Схема базы данных
+
+![database-schema](images/database-schema.png "database-schema.png")
+
+см. [Person](src/main/java/ru/clevertec/clevertecspring/dao/entity/Person.java "Person.java"),
+[House](src/main/java/ru/clevertec/clevertecspring/dao/entity/House.java "House.java")
 
 ***
 
@@ -80,9 +88,9 @@ response:
   },
   {
     "uuid": "36245727-058e-455b-9d42-accc28c05177",
-    "name": "Petr",
-    "surname": "Petrov",
-    "sex": "MALE",
+    "name": "Svetlana",
+    "surname": "Ivanova",
+    "sex": "FEMALE",
     "passport": {
       "series": "HB",
       "number": "1112222"
@@ -108,7 +116,7 @@ request body:
   "sex": "MALE",
   "passport": {
     "series": "HB",
-    "number": "1113333"
+    "number": "1173333"
   },
   "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121"
 }
@@ -118,17 +126,17 @@ response:
 
 ```json
 {
-  "uuid": "c6153e94-cc6c-45bd-a034-24bba8066e25",
+  "uuid": "a1ac59c9-a542-4b02-932f-c97fcae30678",
   "name": "Sidr",
   "surname": "Sidorov",
   "sex": "MALE",
   "passport": {
     "series": "HB",
-    "number": "1113333"
+    "number": "1173333"
   },
   "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121",
-  "createDate": "2024-01-13T17:18:29:407",
-  "updateDate": "2024-01-13T17:18:29:407"
+  "createDate": "2024-01-13T17:06:23:195",
+  "updateDate": "2024-01-13T17:06:23:195"
 }
 ```
 
@@ -141,12 +149,12 @@ request body:
 
 ```json
 {
-  "name": "Semen",
-  "surname": "Semenov",
+  "name": "Ivan",
+  "surname": "Ivanov",
   "sex": "MALE",
   "passport": {
     "series": "HB",
-    "number": "5511771"
+    "number": "7755531"
   },
   "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121"
 }
@@ -157,53 +165,78 @@ response:
 ```json
 {
   "uuid": "6e19a7ae-78f5-475f-92cd-8e838bbc269e",
-  "name": "Semen",
-  "surname": "Semenov",
+  "name": "Ivan",
+  "surname": "Ivanov",
   "sex": "MALE",
   "passport": {
     "series": "HB",
-    "number": "5511771"
+    "number": "7755531"
   },
   "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121",
   "createDate": "2024-01-13T17:06:23:195",
-  "updateDate": "2024-01-13T17:25:21:639"
+  "updateDate": "2024-01-17T14:17:14:232"
 }
 ```
 
-#### - GET (Get Residents By House UUID)
+#### - GET (Get Owners By House UUID)
 
 request url:</br>
-http://localhost:8080/persons/residents/7d7369f0-368f-4ed3-9fbb-71e7c7664121
+http://localhost:8080/persons/owners/1733a4f1-f40c-455f-a108-6d457a6286c7
 
 response:
 
 ```json
 [
   {
-    "uuid": "6e19a7ae-78f5-475f-92cd-8e838bbc269e",
-    "name": "Ivan",
-    "surname": "Ivanov",
+    "uuid": "ab14f5c8-1e57-492c-ac31-cc518f40d59d",
+    "name": "Semen",
+    "surname": "Semenov",
     "sex": "MALE",
     "passport": {
       "series": "HB",
-      "number": "1111111"
+      "number": "4441112"
     },
-    "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121",
-    "createDate": "2024-01-13T18:18:47:762",
-    "updateDate": "2024-01-13T18:18:47:762"
+    "residencyUuid": "1733a4f1-f40c-455f-a108-6d457a6286c7",
+    "createDate": "2024-01-13T17:06:23:195",
+    "updateDate": "2024-01-13T17:06:23:195"
+  }
+]
+```
+
+#### - GET (Get Residents By House UUID)
+
+request url:</br>
+http://localhost:8080/persons/owners/1733a4f1-f40c-455f-a108-6d457a6286c7
+
+response:
+
+```json
+[
+  {
+    "uuid": "ab14f5c8-1e57-492c-ac31-cc518f40d59d",
+    "name": "Semen",
+    "surname": "Semenov",
+    "sex": "MALE",
+    "passport": {
+      "series": "HB",
+      "number": "4441112"
+    },
+    "residencyUuid": "1733a4f1-f40c-455f-a108-6d457a6286c7",
+    "createDate": "2024-01-13T17:06:23:195",
+    "updateDate": "2024-01-13T17:06:23:195"
   },
   {
-    "uuid": "36245727-058e-455b-9d42-accc28c05177",
-    "name": "Petr",
-    "surname": "Petrov",
-    "sex": "MALE",
+    "uuid": "c2994a09-1211-49d2-858f-9d79744fb2f3",
+    "name": "Julia",
+    "surname": "Semenova",
+    "sex": "FEMALE",
     "passport": {
       "series": "HB",
-      "number": "1112222"
+      "number": "5511771"
     },
-    "residencyUuid": "7d7369f0-368f-4ed3-9fbb-71e7c7664121",
-    "createDate": "2024-01-13T18:18:47:762",
-    "updateDate": "2024-01-13T18:18:47:762"
+    "residencyUuid": "1733a4f1-f40c-455f-a108-6d457a6286c7",
+    "createDate": "2024-01-13T17:06:23:195",
+    "updateDate": "2024-01-13T17:06:23:195"
   }
 ]
 ```
@@ -224,7 +257,7 @@ response:
     "city": "Gomel",
     "street": "Bazarnaya",
     "number": "1-A",
-    "createDate": "2024-01-13T18:18:47:745"
+    "createDate": "2024-01-13T17:06:23:195"
   },
   {
     "uuid": "fc34b864-9b6f-43f3-8f38-2707b34e3c7b",
@@ -233,7 +266,7 @@ response:
     "city": "Gomel",
     "street": "Bazarnaya",
     "number": "2-A",
-    "createDate": "2024-01-13T18:18:47:745"
+    "createDate": "2024-01-13T17:06:23:195"
   }
 ]
 ```

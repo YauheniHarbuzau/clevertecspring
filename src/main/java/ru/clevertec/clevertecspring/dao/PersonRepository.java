@@ -18,6 +18,8 @@ public interface PersonRepository {
 
     void deleteByUuid(UUID uuid);
 
+    List<Person> findHouseOwners(UUID houseUuid);
+
     List<Person> findHouseResidents(UUID houseUuid);
 
     List<Person> fullTextSearch(String text);

@@ -83,16 +83,23 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public void deleteByUuid(UUID uuid) {
         var session = sessionFactory.openSession();
+        var personToDelete = findByUuid(uuid).get();
 
         try {
             session.beginTransaction();
-            session.remove(findByUuid(uuid).get());
+            session.remove(session.get(Person.class, personToDelete.getId()));
             session.getTransaction().commit();
         } catch (HibernateException ex) {
             ex.printStackTrace();
             session.getTransaction().rollback();
         }
         session.close();
+    }
+
+    @Override
+    public List<Person> findHouseOwners(UUID houseUuid) {
+        String sql = "SELECT * FROM persons p JOIN houses_owners ho ON p.id = ho.owners_id JOIN houses h ON ho.houses_id = h.id WHERE h.uuid = ?";
+        return jdbcTemplate.query(sql, rowMapper, houseUuid);
     }
 
     @Override
