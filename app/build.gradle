@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'io.freefair.lombok' version '6.5.1'
+}
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+}
+
+ext {
+    postgreSqlVersion = '42.7.1'
+    liquibaseVersion = '4.25.0'
+    testContainersVersion = '1.19.3'
+}
+
+dependencies {
+    implementation project(":util")
+    implementation project(":dao")
+    implementation project(":service")
+    implementation project(":controller")
+
+    implementation "org.springframework.boot:spring-boot-starter"
+
+    implementation "org.postgresql:postgresql:${postgreSqlVersion}"
+
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}

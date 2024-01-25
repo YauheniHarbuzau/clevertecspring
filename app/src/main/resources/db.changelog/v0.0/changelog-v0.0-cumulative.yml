@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/v0.0/ddl/2024-01-11--01-create-houses-table.sql
+  - include:
+      file: db.changelog/v0.0/ddl/2024-01-11--01-create-persons-table.sql
+  - include:
+      file: db.changelog/v0.0/ddl/2024-01-11--01-create-houses-owners-table.sql
+  - include:
+      file: db.changelog/v0.0/ddl/2024-01-11--01-create-house-history-table.sql
+  - changeSet:
+      id: create_trigger
+      author: Author
+      changes:
+        - sqlFile:
+            path: db.changelog/v0.0/ddl/2024-01-11--01-create-house-history-trigger.sql
+            splitStatements: false
+            stripComments: true
+  - include:
+      file: db.changelog/v0.0/dml/2024-01-11--01-insert-into-houses-table.sql
+  - include:
+      file: db.changelog/v0.0/dml/2024-01-11--01-insert-into-persons-table.sql
+  - include:
+      file: db.changelog/v0.0/dml/2024-01-11--01-insert-into-houses-owners-table.sql
