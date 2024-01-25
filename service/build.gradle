@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'io.freefair.lombok' version '6.5.1'
+}
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+}
+
+ext {
+    mapstructVersion = '1.5.5.Final'
+}
+
+dependencies {
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    implementation project(":util")
+    implementation project(":dao")
+
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}

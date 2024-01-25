@@ -3,8 +3,11 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-tomcat*
-!**/TomcatStarter.java
+util/build
+dao/build
+service/build
+controller/build
+app/build
 
 ### IntelliJ IDEA ###
 .idea

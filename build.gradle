@@ -1,79 +1,10 @@
-plugins {
-    id 'java'
-    id 'war'
-    id 'io.freefair.lombok' version '6.5.1'
-}
+allprojects {
+    group 'ru.clevertec'
+    version '1.0-SNAPSHOT'
 
-group 'ru.clevertec'
-version '1.0-SNAPSHOT'
-
-java {
-    sourceCompatibility = JavaLanguageVersion.of(17)
-    targetCompatibility = JavaLanguageVersion.of(17)
-}
-
-repositories {
-    mavenCentral()
-}
-
-ext {
-    springFrameworkVersion = '6.1.2'
-    springDataJpa = '3.2.1'
-    postgreSqlVersion = '42.7.1'
-    liquibaseVersion = '4.25.0'
-    tomcatVersion = '10.1.18'
-    hibernateCoreVersion = '6.4.1.Final'
-    hibernateValidatorVersion = '8.0.1.Final'
-    jacksonVersion = '2.16.1'
-    hikariCpVersion = '5.1.0'
-    jakartaAnnotationVersion = '3.0.0-M1'
-    jakartaServletVersion = '6.1.0-M1'
-    mapstructVersion = '1.5.5.Final'
-    jUnitVersion = '5.9.2'
-}
-
-dependencies {
-    implementation "org.springframework:spring-core:${springFrameworkVersion}"
-    implementation "org.springframework:spring-context:${springFrameworkVersion}"
-    implementation "org.springframework:spring-beans:${springFrameworkVersion}"
-    implementation "org.springframework:spring-orm:${springFrameworkVersion}"
-    implementation "org.springframework:spring-jdbc:${springFrameworkVersion}"
-    implementation "org.springframework:spring-web:${springFrameworkVersion}"
-    implementation "org.springframework:spring-webmvc:${springFrameworkVersion}"
-    testImplementation "org.springframework:spring-test:${springFrameworkVersion}"
-
-    implementation "org.springframework.data:spring-data-jpa:${springDataJpa}"
-
-    implementation "org.postgresql:postgresql:${postgreSqlVersion}"
-
-    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
-
-    implementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
-    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-
-    implementation "org.hibernate.orm:hibernate-core:${hibernateCoreVersion}"
-
-    implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-
-    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jacksonVersion}"
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
-
-    implementation "com.zaxxer:HikariCP:${hikariCpVersion}"
-
-    implementation "jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}"
-
-    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletVersion}"
-
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
-}
-
-test {
-    useJUnitPlatform()
+    repositories {
+        mavenCentral()
+    }
 }
 
 wrapper {
