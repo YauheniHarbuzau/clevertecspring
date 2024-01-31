@@ -12,8 +12,6 @@ import ru.clevertec.clevertecspring.service.dto.response.PersonResponse;
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
-    @Mapping(target = "createDate", dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS")
-    @Mapping(target = "updateDate", dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS")
     @Mapping(target = "residencyUuid", source = "residency.uuid")
     PersonResponse toResponse(Person person);
 

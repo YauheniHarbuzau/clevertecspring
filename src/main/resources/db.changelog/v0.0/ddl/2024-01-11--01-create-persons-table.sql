@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset Harbuzau:create_persons_table
+--changeset Author:create_persons_table
 CREATE TABLE IF NOT EXISTS persons
 (
     id              BIGSERIAL PRIMARY KEY NOT NULL,
@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS persons
     passport_number VARCHAR(10)           NOT NULL,
     create_date     TIMESTAMP             NOT NULL,
     update_date     TIMESTAMP             NOT NULL,
-    residency_id    BIGINT REFERENCES houses(id)
+    residency_id    BIGINT REFERENCES houses(id),
+    UNIQUE (passport_series, passport_number)
 );

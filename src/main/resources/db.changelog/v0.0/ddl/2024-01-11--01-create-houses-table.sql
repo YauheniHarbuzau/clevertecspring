@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset Harbuzau:create_houses_table
+--changeset Author:create_houses_table
 CREATE TABLE IF NOT EXISTS houses
 (
     id          BIGSERIAL PRIMARY KEY NOT NULL,
@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS houses
     city        VARCHAR(100)          NOT NULL,
     street      VARCHAR(100)          NOT NULL,
     number      VARCHAR(10)           NOT NULL,
-    create_date TIMESTAMP             NOT NULL
+    create_date TIMESTAMP             NOT NULL,
+    UNIQUE (area, country, city, street, number)
 );

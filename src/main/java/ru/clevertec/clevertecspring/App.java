@@ -1,16 +1,15 @@
 package ru.clevertec.clevertecspring;
 
-import org.apache.catalina.LifecycleException;
-import ru.clevertec.clevertecspring.util.TomcatStarter;
-
-import java.io.IOException;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Main-класс - точка входа в приложение
  */
+@SpringBootApplication(scanBasePackages = "ru.clevertec.*")
 public class App {
 
-    public static void main(String[] args) throws LifecycleException, IOException {
-        TomcatStarter.start();
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
     }
 }

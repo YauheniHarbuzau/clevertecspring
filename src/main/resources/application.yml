@@ -4,11 +4,22 @@ spring:
     url: jdbc:postgresql://localhost:5432/clevertec_spring
     username: postgres
     password: postgres
-  hibernate:
-    ddl: none
-    dialect: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
     show-sql: true
-    format-sql: true
-pagination:
-  page-size: 15
-  page-number: 1
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.yml
+    enabled: true
+cache:
+  type: LRU
+  capacity: 10

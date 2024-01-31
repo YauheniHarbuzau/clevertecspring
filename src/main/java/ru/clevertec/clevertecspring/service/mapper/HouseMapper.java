@@ -12,7 +12,6 @@ import ru.clevertec.clevertecspring.service.dto.response.HouseResponse;
 @Mapper(componentModel = "spring")
 public interface HouseMapper {
 
-    @Mapping(target = "createDate", dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS")
     HouseResponse toResponse(House house);
 
     @Mapping(target = "id", ignore = true)

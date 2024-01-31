@@ -3,7 +3,6 @@ package ru.clevertec.clevertecspring.dao.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,20 +17,23 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.clevertec.clevertecspring.dao.entity.listener.HouseListener;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * House Entity
+ * Сущность House
+ *
+ * @see Person
+ * @see HouseHistory
  */
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(HouseListener.class)
+@FieldNameConstants
 @Table(name = "houses")
 public class House {
 
@@ -71,8 +73,14 @@ public class House {
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "houses_persons",
-            joinColumns = @JoinColumn(name = "houses_id"),
-            inverseJoinColumns = @JoinColumn(name = "persons_id"))
+    @JoinTable(name = "houses_owners",
+            joinColumns = @JoinColumn(name = "house_id"),
+            inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private List<Person> owners;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "house",
+            fetch = FetchType.LAZY)
+    private List<HouseHistory> houseHistories;
 }
