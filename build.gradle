@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id 'war'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'io.freefair.lombok' version '6.5.1'
 }
 
@@ -17,12 +18,39 @@ repositories {
 }
 
 ext {
-    jUnitVersion = '5.9.2'
+    mapstructVersion = '1.5.5.Final'
+    postgreSqlVersion = '42.7.1'
+    liquibaseVersion = '4.25.0'
+    springDocOpenApi = '2.3.0'
+    testContainersVersion = '1.19.3'
+    mockitoVersion = '5.10.0'
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework:spring-aop"
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    implementation "org.postgresql:postgresql:${postgreSqlVersion}"
+
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApi}"
+
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
+
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 }
 
 test {
