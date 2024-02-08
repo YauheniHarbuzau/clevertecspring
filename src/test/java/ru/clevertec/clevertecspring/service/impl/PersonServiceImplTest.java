@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import ru.clevertec.clevertecspring.aop.PersonServiceAspect;
 import ru.clevertec.clevertecspring.dao.entity.House;
 import ru.clevertec.clevertecspring.dao.entity.Person;
 import ru.clevertec.clevertecspring.dao.repository.HouseRepository;
@@ -58,6 +59,9 @@ class PersonServiceImplTest extends PostgreSqlContainerInitializer {
 
     @MockBean
     private final HouseRepository houseRepository;
+
+    @MockBean
+    private final PersonServiceAspect personServiceAspect;
 
     @SpyBean
     private final PersonMapper personMapper;

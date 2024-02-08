@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'ru.clevertec'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 java {
     sourceCompatibility = JavaLanguageVersion.of(17)
@@ -21,19 +21,24 @@ ext {
     mapstructVersion = '1.5.5.Final'
     postgreSqlVersion = '42.7.1'
     liquibaseVersion = '4.25.0'
-    springDocOpenApi = '2.3.0'
+    springDocOpenApiVersion = '2.3.0'
     testContainersVersion = '1.19.3'
-    mockitoVersion = '5.10.0'
+}
+
+configurations {
+    all {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
 }
 
 dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
-    implementation "org.springframework.boot:spring-boot-starter"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework:spring-aop"
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    implementation "org.springframework.boot:spring-boot-starter-log4j2"
 
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 
@@ -41,16 +46,13 @@ dependencies {
 
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
 
-    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApi}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
 
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 
     testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
-    testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
-
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 }
 
 test {

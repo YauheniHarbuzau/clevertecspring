@@ -1,14 +1,12 @@
-package ru.clevertec.clevertecspring.dao.aop.pointcut;
+package ru.clevertec.clevertecspring.aop.pointcut;
 
 import org.aspectj.lang.annotation.Pointcut;
 import ru.clevertec.clevertecspring.dao.repository.HouseRepository;
 
 /**
- * Точки среза для работы АОП с репозиторием
- *
- * @see HouseRepository
+ * Точки среза для работы АОП с {@link HouseRepository}
  */
-public class HouseAspectPointcut {
+public class HouseRepositoryAspectPointcut {
 
     @Pointcut("execution(* ru.clevertec.clevertecspring.dao.repository.HouseRepository.findHouseByUuid(..))")
     public static void findHouseByUuidMethodPointcut() {

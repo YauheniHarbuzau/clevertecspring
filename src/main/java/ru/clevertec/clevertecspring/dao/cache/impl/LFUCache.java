@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Реализация LFU алгоритма кеширования данных
+ * Реализация LFU алгоритма кэширования данных
  */
 public class LFUCache<K, V> implements Cache<K, V> {
 

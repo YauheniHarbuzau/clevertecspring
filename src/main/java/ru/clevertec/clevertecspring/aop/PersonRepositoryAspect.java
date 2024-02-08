@@ -1,4 +1,4 @@
-package ru.clevertec.clevertecspring.dao.aop;
+package ru.clevertec.clevertecspring.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.clevertec.clevertecspring.dao.aop.pointcut.PersonAspectPointcut;
+import ru.clevertec.clevertecspring.aop.pointcut.PersonRepositoryAspectPointcut;
 import ru.clevertec.clevertecspring.dao.cache.Cache;
 import ru.clevertec.clevertecspring.dao.cache.CacheFactory;
 import ru.clevertec.clevertecspring.dao.cache.impl.CacheFactoryImpl;
@@ -18,25 +18,25 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Реализация АОП для работы с репозиторием
+ * Реализация АОП для кэширования данных (на уровне репозитория)
  *
  * @see PersonRepository
- * @see PersonAspectPointcut
+ * @see PersonRepositoryAspectPointcut
  */
 @Aspect
 @Component
-public class PersonAspect {
+public class PersonRepositoryAspect {
 
     private final CacheFactory<UUID, Person> cacheFactory;
     private final Cache<UUID, Person> cache;
 
-    public PersonAspect(@Value("${cache.type}") String cacheType,
-                        @Value("${cache.capacity}") int cacheCapacity) {
+    public PersonRepositoryAspect(@Value("${cache.type}") String cacheType,
+                                  @Value("${cache.capacity}") int cacheCapacity) {
         this.cacheFactory = new CacheFactoryImpl<>();
         this.cache = cacheFactory.initCache(cacheType, cacheCapacity);
     }
 
-    @Around("ru.clevertec.clevertecspring.dao.aop.pointcut.PersonAspectPointcut.findPersonByUuidMethodPointcut()")
+    @Around("ru.clevertec.clevertecspring.aop.pointcut.PersonRepositoryAspectPointcut.findPersonByUuidMethodPointcut()")
     public Optional<Person> aroundFindPersonByUuidMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         var uuid = (UUID) joinPoint.getArgs()[0];
 
@@ -51,14 +51,14 @@ public class PersonAspect {
         return person;
     }
 
-    @Around("ru.clevertec.clevertecspring.dao.aop.pointcut.PersonAspectPointcut.saveMethodPointcut()")
+    @Around("ru.clevertec.clevertecspring.aop.pointcut.PersonRepositoryAspectPointcut.saveMethodPointcut()")
     public Person aroundSaveMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         var person = (Person) joinPoint.proceed();
         cache.put(person.getUuid(), person);
         return person;
     }
 
-    @After("ru.clevertec.clevertecspring.dao.aop.pointcut.PersonAspectPointcut.deletePersonByUuidMethodPointcut()")
+    @After("ru.clevertec.clevertecspring.aop.pointcut.PersonRepositoryAspectPointcut.deletePersonByUuidMethodPointcut()")
     public void afterDeletePersonByUuidMethod(JoinPoint joinPoint) {
         var uuid = (UUID) joinPoint.getArgs()[0];
 

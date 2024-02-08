@@ -1,14 +1,12 @@
-package ru.clevertec.clevertecspring.dao.aop.pointcut;
+package ru.clevertec.clevertecspring.aop.pointcut;
 
 import org.aspectj.lang.annotation.Pointcut;
 import ru.clevertec.clevertecspring.dao.repository.PersonRepository;
 
 /**
- * Точки среза для работы АОП с репозиторием
- *
- * @see PersonRepository
+ * Точки среза для работы АОП с {@link PersonRepository}
  */
-public class PersonAspectPointcut {
+public class PersonRepositoryAspectPointcut {
 
     @Pointcut("execution(* ru.clevertec.clevertecspring.dao.repository.PersonRepository.findPersonByUuid(..))")
     public static void findPersonByUuidMethodPointcut() {

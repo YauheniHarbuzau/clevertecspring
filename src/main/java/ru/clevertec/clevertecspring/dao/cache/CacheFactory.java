@@ -1,7 +1,7 @@
 package ru.clevertec.clevertecspring.dao.cache;
 
 /**
- * Фабрика для инициализации алгоритма кеширования данных
+ * Фабрика для инициализации алгоритма кэширования данных
  */
 public interface CacheFactory<K, V> {
 

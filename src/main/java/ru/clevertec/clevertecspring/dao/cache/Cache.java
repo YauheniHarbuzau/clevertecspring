@@ -3,7 +3,7 @@ package ru.clevertec.clevertecspring.dao.cache;
 import java.util.Optional;
 
 /**
- * Интерфейс для алгоритмов кеширования данных
+ * Интерфейс для алгоритмов кэширования данных
  */
 public interface Cache<K, V> {
 

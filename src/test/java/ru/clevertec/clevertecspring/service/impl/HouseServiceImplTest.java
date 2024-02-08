@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import ru.clevertec.clevertecspring.aop.HouseServiceAspect;
 import ru.clevertec.clevertecspring.dao.entity.House;
 import ru.clevertec.clevertecspring.dao.repository.HouseRepository;
 import ru.clevertec.clevertecspring.exception.EntityNotFoundException;
@@ -52,6 +53,9 @@ class HouseServiceImplTest extends PostgreSqlContainerInitializer {
 
     @MockBean
     private final HouseRepository houseRepository;
+
+    @MockBean
+    private final HouseServiceAspect houseServiceAspect;
 
     @SpyBean
     private final HouseMapper houseMapper;

@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Реализация LRU алгоритма кеширования данных
+ * Реализация LRU алгоритма кэширования данных
  */
 public class LRUCache<K, V> implements Cache<K, V> {
 
