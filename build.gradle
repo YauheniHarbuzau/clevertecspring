@@ -1,11 +1,12 @@
 plugins {
     id 'java'
-    id 'war'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'io.freefair.lombok' version '6.5.1'
 }
 
 group 'ru.clevertec'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 java {
     sourceCompatibility = JavaLanguageVersion.of(17)
@@ -17,12 +18,41 @@ repositories {
 }
 
 ext {
-    jUnitVersion = '5.9.2'
+    mapstructVersion = '1.5.5.Final'
+    postgreSqlVersion = '42.7.1'
+    liquibaseVersion = '4.25.0'
+    springDocOpenApiVersion = '2.3.0'
+    testContainersVersion = '1.19.3'
+}
+
+configurations {
+    all {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    implementation "org.springframework.boot:spring-boot-starter-log4j2"
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    implementation "org.postgresql:postgresql:${postgreSqlVersion}"
+
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
+
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
 }
 
 test {
